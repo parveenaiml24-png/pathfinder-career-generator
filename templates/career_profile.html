@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Career profile{% endblock %}
+{% block breadcrumb %}Career profile{% endblock %}
+{% block content %}
+<div class="page-heading heading-row"><div><div class="eyebrow">YOUR STORY, WELL TOLD</div><h1>Career profile</h1><p class="muted">One consistent story, ready for the places your career goes.</p></div><div class="heading-actions"><button class="button button-light" onclick="window.print()">Print</button><a class="button button-dark" href="{{ url_for('download_pdf') }}">Download PDF <span>↓</span></a></div></div>
+{% if payload %}
+<div class="content-layout"><div class="content-main">
+  <article class="card content-card hero-content-card"><div class="content-card-top"><span class="content-icon lavender">✧</span><span class="eyebrow">PROFESSIONAL SUMMARY</span><button class="copy-button" data-copy="{{ payload.professional_summary|e }}">Copy</button></div><p class="large-copy">{{ payload.professional_summary }}</p></article>
+  <article class="card content-card"><div class="content-card-top"><span class="content-icon mint">↗</span><span class="eyebrow">CAREER OBJECTIVE</span><button class="copy-button" data-copy="{{ payload.career_objective|e }}">Copy</button></div><p>{{ payload.career_objective }}</p></article>
+  <article class="card content-card"><div class="content-card-top"><span class="content-icon blue">in</span><span class="eyebrow">LINKEDIN ABOUT</span><button class="copy-button" data-copy="{{ payload.linkedin_about|e }}">Copy</button></div><p>{{ payload.linkedin_about }}</p></article>
+  <article class="card content-card"><div class="content-card-top"><span class="content-icon peach">⌘</span><span class="eyebrow">PORTFOLIO INTRODUCTION</span><button class="copy-button" data-copy="{{ payload.portfolio_intro|e }}">Copy</button></div><p>{{ payload.portfolio_intro }}</p></article>
+  <article class="card content-card"><div class="content-card-top"><span class="content-icon lavender">◉</span><span class="eyebrow">“TELL ME ABOUT YOURSELF”</span><button class="copy-button" data-copy="{{ payload.interview_intro|e }}">Copy</button></div><p>{{ payload.interview_intro }}</p></article>
+</div><aside class="content-aside"><article class="card"><div class="eyebrow">ROLES TO EXPLORE</div><h3>Possible next chapters</h3>{% for role in payload.roles %}<div class="aside-role"><span>↗</span>{{ role }}</div>{% endfor %}<a class="inline-link" href="{{ url_for('skill_gap') }}">Explore your fit <span>→</span></a></article><article class="card"><div class="eyebrow">YOUR STRENGTHS</div><h3>What you bring</h3><div class="tag-list">{% for strength in payload.strengths %}<span>{{ strength }}</span>{% endfor %}</div></article><div class="note-card"><span>✦</span><p>Keep it authentic. Add concrete project examples to make your story even stronger.</p></div></aside></div>
+{% else %}<section class="empty-state card"><div class="empty-art">✧</div><h2>Your career profile is one step away.</h2><p>Complete your profile, then generate content tailored to your goals.</p><a class="button button-dark" href="{{ url_for('profile') }}">Complete my profile <span>→</span></a></section>{% endif %}
+{% endblock %}
